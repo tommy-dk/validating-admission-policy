@@ -1,0 +1,55 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: parameters.example.com
+  annotations:
+    admission.kubernetes.io/is-policy-configuration-definition: "true"
+spec:
+  group: example.com
+  names:
+    kind: parameters
+    plural: parameters
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          parameters:
+            type: object
+            properties:
+              maxReplicas:
+                type: integer
+              revisionHistoryLimit:
+                type: integer
+              allowedProductKeys:
+                type: array
+                items:
+                  type: string
+                  properties:
+                    product:
+                      type: string
+              bannedTags:
+                type: array
+                items:
+                  type: string
+                  properties:
+                    tag:
+                      type: string
+              bannedRegistries:
+                type: array
+                items:
+                  type: string
+                  properties:
+                    registry:
+                      type: string
+              allowedEnvLabels:
+                type: array
+                items:
+                  type: string
+                  properties:
+                    envLabel:
+                      type: string
+    served: true
+    storage: true
+  scope: Cluster

@@ -1,0 +1,31 @@
+apiVersion: example.com/v1
+kind: parameters
+metadata:
+  name: validatingadmissionpolicyparameters
+parameters:
+  maxReplicas: 3
+  revisionHistoryLimit: 3
+  allowedProductKeys:
+    - foo
+    - bar
+    - foobar
+  bannedTags:
+    - latest
+  bannedRegistries: 
+    - docker.io
+    - gcr.io
+  allowedEnvLabels:
+    - dev
+    - test
+    - uat
+    - cdt
+    - preprod
+    - prod
+    - perf
+    - poc
+    - qa
+    - sandbox
+    - shadow
+    - sit
+    - spt
+    - stage

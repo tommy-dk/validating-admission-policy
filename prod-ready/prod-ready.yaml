@@ -1,0 +1,46 @@
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: prod-ready
+spec:
+  failurePolicy: Fail
+  paramKind:
+    apiVersion: example.com/v1
+    kind: parameters
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments", "statefulsets"]
+  validations:
+    - expression: "object.spec.replicas >= params.parameters.maxReplicas"
+      message: "You need at least 3 replicas for running in production"
+
+    - expression: |
+        params.parameters.bannedRegistries.all(
+          registry, object.spec.template.spec.containers.exists_one(
+            container, !(container.image.startsWith(registry))
+          )
+        )
+      message: "Image is coming from an untrusted registry"
+
+    - expression: |
+        params.parameters.bannedTags.all(
+          tag, object.spec.template.spec.containers.all(
+            container, !(container.image.endsWith(':' + tag))
+          )
+        )
+      message: "Cannot use the this tag for container images"
+
+    - expression: |
+        object.spec.template.spec.containers.all(
+          container, has(container.resources) && has(container.resources.limits) && has(container.resources.limits.cpu)
+        )
+      message: "A container in the pod does not have a cpu limit set"
+
+    - expression: "has(object.metadata.labels.app)"
+      message: "Deployment needs `app` label"
+
+    - expression: "has(object.metadata.labels.env) && object.metadata.labels.env in params.parameters.allowedEnvLabels"
+      message: "Deployment should have an environment label called `env` and set to the allowed naming standards"
