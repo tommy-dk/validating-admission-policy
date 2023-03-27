@@ -206,7 +206,7 @@ Looking at the first rule, it's easy to see how to get rid of a constant and rep
       message: "You need at least 3 replicas for running in production"
 ```
 
-Caveat! `message` still can't understand variables, but [there's work going on](https://github.com/kubernetes/kubernetes/commit/4e26f680a9e10f0da94830bbaba9633807e22aba) to extend it and create a `messageExpression` which understands variables.
+:exclamation: Caveat! `message` still can't understand variables, but [there's work going on](https://github.com/kubernetes/kubernetes/commit/4e26f680a9e10f0da94830bbaba9633807e22aba) to extend it and create a `messageExpression` which understands variables.
 
 ### Multiple input parameters to the same rule
 
@@ -272,4 +272,4 @@ Try to play around with the parameters as well as the values in `test-deployment
 
 ## Conclusion
 
-From my evalution `ValidatingAdmissionPolicy` is a really powerful engine utilising the CEL language which is very easy to write and understand. I found it very easy to write policies and extending them with a Custom Resource Definition, and from my viewpoint this will quickly make [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper) and [Kyverno](https://kyverno.io/) redundant.
+From my evalution `ValidatingAdmissionPolicy` is a really powerful engine utilising the CEL language which is very easy to write and understand. I found it very easy to write policies and extending them with a Custom Resource Definition, and from my viewpoint this will quickly make [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper) and [Kyverno](https://kyverno.io/) redundant once this is out of alpha.
