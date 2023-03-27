@@ -81,8 +81,10 @@ Test out a deployment with more than 3 replicas set:
 
 ```sh
 kubectl apply -f test-deployment.yaml
-The deployments "test-deployment" is invalid: : ValidatingAdmissionPolicy 'max-replicas' with binding 'max-replicas' denied request: spec.replicas must be no greater than 3
 ```
+The output will then be:
+
+> ```The deployments "test-deployment" is invalid: : ValidatingAdmissionPolicy 'max-replicas' with binding 'max-replicas' denied request: spec.replicas must be no greater than 3```
 
 The policy denied the `Deployment` to be created because it didn't match the rule we created.
 
@@ -265,8 +267,9 @@ Test out the rules with the `test-deployment.yaml`:
 cd prod-ready
 kubectl apply -k .
 kubectl apply -f test-deployment.yaml
-The deployments "test-deployment" is invalid: : ValidatingAdmissionPolicy 'prod-ready' with binding 'prod-ready' denied request: Image is coming from an untrusted registry
 ```
+The output will then be:
+> ```The deployments "test-deployment" is invalid: : ValidatingAdmissionPolicy 'prod-ready' with binding 'prod-ready' denied request: Image is coming from an untrusted registry```
 
 Try to play around with the parameters as well as the values in `test-deployment.yaml`.
 
