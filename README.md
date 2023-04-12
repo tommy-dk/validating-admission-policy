@@ -1,8 +1,8 @@
-# Evaluating Validating Admission Policy in Kubernetes 1.26 with input parameters from CRD
+# Evaluating Validating Admission Policy in Kubernetes 1.27 with input parameters from CRD
 
 ## Introduction
 
-In [Kubernetes 1.26 an alpha feature](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/) was introduced that will offer an alternative to validating admission webhooks by having it directly in Kubernetes. This feature uses the CEL language (Commen Expression Language) and gives the cluster administrator the powers to create admission policies for using the Kubernetes cluster.
+In [Kubernetes 1.27 an alpha feature](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/) was introduced that will offer an alternative to validating admission webhooks by having it directly in Kubernetes. This feature uses the CEL language (Commen Expression Language) and gives the cluster administrator the powers to create admission policies for using the Kubernetes cluster.
 
 In this guide I explore how to utilise this new feature paired with using a Custom Resource Definition (CRD) as input parameters for easy customisation of the policies.
 
@@ -31,7 +31,7 @@ Start the cluster with:
 kind create cluster --config kind-config.yaml
 ```
 
-You now have a Kubernetes 1.26 cluster named `kind` with the needed features enabled.
+You now have a Kubernetes 1.27 cluster named `kind` with the needed features enabled.
 
 ## Creating your first policy
 
