@@ -3,5 +3,6 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: max-replicas
 spec:
+  validationActions: [Deny]
   policyName: max-replicas
   matchResources:

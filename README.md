@@ -8,7 +8,7 @@ In this guide I explore how to utilise this new feature paired with using a Cust
 
 ValidatingAdmissionPolicy is a native alternative to the webhooks-based [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper) and [Kyverno](https://kyverno.io/).
 
-## Setting up Kubernetes 1.26 locally
+## Setting up Kubernetes 1.27 locally
 
 As I'm trying to evaluate an alpha feature, we need to setup [kind](https://github.com/kubernetes-sigs/kind) with the following config file:
 
@@ -21,9 +21,9 @@ runtimeConfig:
   "admissionregistration.k8s.io/v1alpha1": true
 nodes:
 - role: control-plane
-  image: kindest/node:v1.26.2
+  image: kindest/node:v1.27.0
 - role: worker
-  image: kindest/node:v1.26.2
+  image: kindest/node:v1.27.0
 ```
 
 Start the cluster with:
@@ -260,6 +260,12 @@ spec:
         operator: In
         values:
         - prod
+```
+
+Before testing out the deployment, configure the above label on the namespace:
+
+```sh
+kubectl label namespace default environment=prod
 ```
 
 Test out the rules with the `test-deployment.yaml`:

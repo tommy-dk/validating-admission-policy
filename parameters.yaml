@@ -12,7 +12,7 @@ parameters:
   bannedTags:
     - latest
   bannedRegistries: 
-    - docker.io
+    #- docker.io
     - gcr.io
   allowedEnvLabels:
     - dev

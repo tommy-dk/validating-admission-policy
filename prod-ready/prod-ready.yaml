@@ -15,7 +15,7 @@ spec:
       resources:   ["deployments", "statefulsets"]
   validations:
     - expression: "object.spec.replicas >= params.parameters.maxReplicas"
-      message: "You need at least 3 replicas for running in production"
+      messageExpression: "'spec.replicas must be at least ' + string(params.parameters.maxReplicas) + ' or more replicas for running in production'"
 
     - expression: |
         params.parameters.bannedRegistries.all(
@@ -23,7 +23,8 @@ spec:
             container, !(container.image.startsWith(registry))
           )
         )
-      message: "Image is coming from an untrusted registry"
+      ## This works, but its obviously not accurate
+      messageExpression: "'Image is coming from an untrusted registry: ' + string(params.parameters.bannedRegistries[0])"
 
     - expression: |
         params.parameters.bannedTags.all(
@@ -31,7 +32,7 @@ spec:
             container, !(container.image.endsWith(':' + tag))
           )
         )
-      message: "Cannot use the this tag for container images"
+      messageExpression: "Cannot use this tag for container images"
 
     - expression: |
         object.spec.template.spec.containers.all(

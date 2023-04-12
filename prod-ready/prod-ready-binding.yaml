@@ -3,6 +3,7 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: prod-ready
 spec:
+  validationActions: [Deny]
   policyName: prod-ready
   paramRef:
     name: "validatingadmissionpolicyparameters"
